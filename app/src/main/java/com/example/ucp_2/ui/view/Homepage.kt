@@ -2,6 +2,7 @@ package com.example.ucp_2.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -99,5 +100,59 @@ fun HeaderSection() {
                     .clip(CircleShape)
             )
         }
+    }
+}
+
+@Composable
+fun BodySection(
+    onItemClick: (String) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        Text(
+            text = "Selamat datang di aplikasi manajemen gudang andalan Anda!",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.Gray,
+            modifier = Modifier.padding(bottom = 8.dp)
+        )
+
+        Text(
+            text = "Gunakan berbagai fitur kami untuk mengelola Supplier dan Barang dengan lebih mudah dan efisien. " +
+                    "Pastikan Anda selalu memantau stok agar operasional berjalan lancar tanpa hambatan.",
+            fontSize = 14.sp,
+            color = Color.Gray,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
+        ManageBox(
+            title = "Manage Supplier",
+            description = "Kelola data supplier dengan mudah di sini. Pantau dan atur informasi supplier dengan cepat dan efisien.",
+            backgroundColor = Color(0xFF00C853),
+            iconResource = R.drawable.supplier,
+            onClick = { onItemClick("Supplier") }
+        )
+
+        ManageBox(
+            title = "Manage Barang",
+            description = "Kelola data barang dengan praktis di sini. Tambahkan, ubah, atau hapus data barang sesuai kebutuhan Anda.",
+            backgroundColor = Color(0xFF007BFF),
+            iconResource = R.drawable.box,
+            onClick = { onItemClick("Barang") }
+        )
+
+        Spacer(modifier = Modifier.size(16.dp))
+
+        Text(
+            text = "Optimalkan performa gudang Anda dengan terus memperbarui data barang dan supplier. Aplikasi ini hadir untuk mendukung kebutuhan operasional Anda!",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color.Gray,
+            modifier = Modifier.padding(top = 8.dp)
+        )
     }
 }
