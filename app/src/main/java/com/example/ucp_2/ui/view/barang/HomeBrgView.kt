@@ -1,6 +1,7 @@
 package com.example.ucp_2.ui.view.barang
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -102,3 +103,26 @@ fun BodyHomeBrgView (
         }
     }
 }
+
+@Composable
+fun ListBarang (
+    listBrg : List<Barang>,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit
+) {
+    LazyColumn (
+        modifier = modifier
+    ) {
+        items(
+            items = listBrg,
+            itemContent = { brg ->
+                CardBarang(
+                    brg = brg,
+                    onClick = { onClick(brg.id.toString())}
+                )
+            }
+        )
+    }
+}
+
+
