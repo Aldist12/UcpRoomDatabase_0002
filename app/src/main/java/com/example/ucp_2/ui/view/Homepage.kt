@@ -2,6 +2,7 @@ package com.example.ucp_2.ui.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -154,5 +155,48 @@ fun BodySection(
             color = Color.Gray,
             modifier = Modifier.padding(top = 8.dp)
         )
+    }
+}
+@Composable
+fun ManageBox(
+    title: String,
+    description: String,
+    backgroundColor: Color,
+    iconResource: Int,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(color = backgroundColor, shape = RoundedCornerShape(16.dp))
+            .clickable { onClick() }
+            .padding(16.dp)
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = title,
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+                Text(
+                    text = description,
+                    fontSize = 14.sp,
+                    color = Color.White
+                )
+            }
+            Image(
+                painter = painterResource(id = iconResource),
+                contentDescription = "$title Icon",
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+            )
+        }
     }
 }
