@@ -1,6 +1,7 @@
 package com.example.ucp_2.ui.viewmodel.barang
 
 import androidx.lifecycle.ViewModel
+import com.example.ucp_2.data.entity.Barang
 import com.example.ucp_2.repository.RepositoryBrg
 
 class BarangViewModel(private val repositoryBrg: RepositoryBrg) : ViewModel() {
@@ -68,3 +69,11 @@ data class FormErrorBrgState(
                 deskripsi == null && stok == null && namaSupplier == null
     }
 }
+fun BarangEvent.toBarangEntity(): Barang = Barang(
+    id = id.toIntOrNull() ?: 0,
+    namaBarang = namaBarang,
+    deskripsi = deskripsi,
+    harga = harga.toIntOrNull() ?: 0,
+    stok = stok.toIntOrNull() ?: 0,
+    namaSupplier = namaSupplier
+)
