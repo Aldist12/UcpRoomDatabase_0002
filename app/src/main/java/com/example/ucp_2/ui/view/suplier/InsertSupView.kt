@@ -7,9 +7,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,6 +24,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
@@ -126,5 +135,110 @@ fun InsertBodySup(
                 fontSize = 16.sp
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FormSupplier(
+    modifier: Modifier = Modifier,
+    supplierEvent: SupplierEvent = SupplierEvent(),
+    onValueChange: (SupplierEvent) -> Unit = {},
+    errorState: FormErrorSplState = FormErrorSplState(),
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(
+                color = MaterialTheme.colorScheme.background,
+                shape = MaterialTheme.shapes.medium
+            ),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = supplierEvent.nama,
+            onValueChange = { onValueChange(supplierEvent.copy(nama = it)) },
+            label = { Text("Nama") },
+            placeholder = { Text("Masukkan Nama Supplier") },
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.Person,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            isError = errorState.nama != null,
+            singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        Text(
+            text = errorState.nama ?: "",
+            color = Color.Red,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = supplierEvent.kontak,
+            onValueChange = { onValueChange(supplierEvent.copy(kontak = it)) },
+            label = { Text("Kontak") },
+            placeholder = { Text("Masukkan Kontak") },
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.Phone,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            isError = errorState.kontak != null,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        Text(
+            text = errorState.kontak ?: "",
+            color = Color.Red,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = 8.dp)
+        )
+
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = supplierEvent.alamat,
+            onValueChange = { onValueChange(supplierEvent.copy(alamat = it)) },
+            label = { Text("Alamat") },
+            placeholder = { Text("Masukkan Alamat") },
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.LocationOn,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            isError = errorState.alamat != null,
+            singleLine = false,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        Text(
+            text = errorState.alamat ?: "",
+            color = Color.Red,
+            fontSize = 12.sp,
+            modifier = Modifier.padding(start = 8.dp)
+        )
     }
 }
