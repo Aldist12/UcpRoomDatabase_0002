@@ -254,3 +254,27 @@ fun ItemDetailBrg(
     }
 }
 
+@Composable
+private fun DeleteConfirmationDialog(
+    onDeleteConfirm: () -> Unit,
+    onDeleteCancel: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    AlertDialog(
+        onDismissRequest = { },
+        title = { Text("Delete Data") },
+        text = { Text("Apakah anda yakin ingin menghapus data barang ini?") },
+        modifier = modifier,
+        dismissButton = {
+            TextButton(onClick = onDeleteCancel) {
+                Text("Cancel")
+            }
+        },
+        confirmButton = {
+            TextButton(onClick = onDeleteConfirm) {
+                Text("Yes")
+            }
+        }
+    )
+}
+
