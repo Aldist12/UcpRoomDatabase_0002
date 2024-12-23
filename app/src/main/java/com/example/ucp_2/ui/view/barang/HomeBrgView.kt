@@ -53,3 +53,52 @@ fun HomeBrgView(
         )
     }
 }
+
+@Composable
+fun BodyHomeBrgView (
+    homeUiState : HomeUIStateBrg,
+    modifier: Modifier = Modifier,
+    onClick: (String) -> Unit,
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    when {
+        homeUiState.isLoading -> {
+            LoadingState()
+        }
+
+        homeUiState.isError -> {
+            LaunchedEffect(homeUiState.errorMessage) {
+                homeUiState.errorMessage?.let{ message ->
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(message)
+                    }
+                }
+            }
+        }
+
+        homeUiState.listBarang.isEmpty() -> {
+            Box (
+                modifier = modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text (
+                    text = "Tidak ada data Barang. ",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
+        }
+        else -> {
+            ListBarang(
+                listBrg = homeUiState.listBarang,
+                onClick = {
+                    onClick(it)
+                    println(it)
+                },
+                modifier = modifier
+            )
+        }
+    }
+}
