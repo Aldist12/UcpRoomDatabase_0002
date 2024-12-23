@@ -138,3 +138,181 @@ fun InsertBodyBrg(
         }
     }
 }
+
+@Composable
+fun FormBarang(
+    modifier: Modifier = Modifier,
+    barangEvent: BarangEvent = BarangEvent(),
+    onValueChange: (BarangEvent) -> Unit = { },
+    errorBrgState: FormErrorBrgState = FormErrorBrgState()
+) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+            .background(
+                color = MaterialTheme.colorScheme.background,
+                shape = MaterialTheme.shapes.medium
+            ),
+        verticalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        // Nama Barang
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = barangEvent.namaBarang,
+            onValueChange = {
+                onValueChange(barangEvent.copy(namaBarang = it))
+            },
+            label = { Text("Nama Barang") },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.item),
+                    contentDescription = "Nama Barang Icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+            },
+            placeholder = { Text("Masukkan Nama Barang") },
+            isError = errorBrgState.namaBarang != null,
+            singleLine = true,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        if (errorBrgState.namaBarang != null) {
+            Text(
+                text = errorBrgState.namaBarang,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        // Deskripsi
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = barangEvent.deskripsi,
+            onValueChange = {
+                onValueChange(barangEvent.copy(deskripsi = it))
+            },
+            label = { Text("Deskripsi") },
+            leadingIcon = {
+                Icon(
+                    Icons.Filled.Info,
+                    contentDescription = "Deskripsi Icon",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            },
+            placeholder = { Text("Masukkan Deskripsi Barang") },
+            isError = errorBrgState.deskripsi != null,
+            singleLine = false,
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        if (errorBrgState.deskripsi != null) {
+            Text(
+                text = errorBrgState.deskripsi,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+
+        // Harga
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = barangEvent.harga,
+            onValueChange = {
+                val filteredInput = it.filter { char -> char.isDigit() }
+                onValueChange(barangEvent.copy(harga = filteredInput))
+            },
+            label = { Text("Harga") },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.money),
+                    contentDescription = "Harga Icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+            },
+            placeholder = { Text("Masukkan Harga") },
+            isError = errorBrgState.harga != null,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        if (errorBrgState.harga != null) {
+            Text(
+                text = errorBrgState.harga,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+
+        // Stok
+        OutlinedTextField(
+            modifier = Modifier.fillMaxWidth(),
+            value = barangEvent.stok,
+            onValueChange = {
+                val filteredInput = it.filter { char -> char.isDigit() }
+                onValueChange(barangEvent.copy(stok = filteredInput))
+            },
+            label = { Text("Stok") },
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(R.drawable.stock),
+                    contentDescription = "Stok Icon",
+                    tint = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.size(20.dp)
+                )
+            },
+            placeholder = { Text("Masukkan Stok Barang") },
+            isError = errorBrgState.stok != null,
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            colors = OutlinedTextFieldDefaults.colors(
+                focusedBorderColor = MaterialTheme.colorScheme.primary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                errorBorderColor = Color.Red
+            )
+        )
+        if (errorBrgState.stok != null) {
+            Text(
+                text = errorBrgState.stok,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+
+        // Supplier
+        DropDownSupplier(
+            selectedValue = barangEvent.namaSupplier,
+            options = NamaSupplier.options(),
+            label = "Nama Supplier",
+            onValueChangedEvent = { selectedSupplier ->
+                onValueChange(barangEvent.copy(namaSupplier = selectedSupplier))
+            }
+        )
+        if (errorBrgState.namaSupplier != null) {
+            Text(
+                text = errorBrgState.namaSupplier,
+                color = Color.Red,
+                fontSize = 12.sp,
+                modifier = Modifier.padding(start = 8.dp, top = 2.dp)
+            )
+        }
+    }
+}
