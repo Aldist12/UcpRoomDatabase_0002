@@ -77,3 +77,12 @@ fun BarangEvent.toBarangEntity(): Barang = Barang(
     stok = stok.toIntOrNull() ?: 0,
     namaSupplier = namaSupplier
 )
+data class BarangEvent(
+    val id: String = "",
+    val namaBarang: String = "",
+    val deskripsi: String = "",
+    val harga: String = "",
+    val stok: String = "",
+    var namaSupplier: String = ""
+)
+
