@@ -50,3 +50,8 @@ class BarangViewModel(private val repositoryBrg: RepositoryBrg) : ViewModel() {
         uiBrgState = uiBrgState.copy(snackBarMessage = null)
     }
 }
+data class brgUIState(
+    val barangEvent: BarangEvent = BarangEvent(),
+    val isEntryBrgValid: FormErrorBrgState = FormErrorBrgState(),
+    val snackBarMessage: String? = null
+)
