@@ -83,6 +83,7 @@ fun BodyHomeSupView(
                 }
             }
         }
+
         homeUiState.listSpl.isEmpty() -> {
             Box(
                 modifier = modifier.fillMaxSize(),
@@ -96,6 +97,7 @@ fun BodyHomeSupView(
                 )
             }
         }
+
         else -> {
             ListSupplier(
                 listSup = homeUiState.listSpl,
