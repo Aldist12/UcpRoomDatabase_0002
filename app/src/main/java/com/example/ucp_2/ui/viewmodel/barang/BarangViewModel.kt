@@ -55,3 +55,16 @@ data class brgUIState(
     val isEntryBrgValid: FormErrorBrgState = FormErrorBrgState(),
     val snackBarMessage: String? = null
 )
+data class FormErrorBrgState(
+    val id: String? = null,
+    val namaBarang: String? = null,
+    val deskripsi: String? = null,
+    val harga: String? = null,
+    val stok: String? = null,
+    val namaSupplier: String? = null
+) {
+    fun isBrgValid(): Boolean {
+        return id == null && namaBarang == null && harga == null &&
+                deskripsi == null && stok == null && namaSupplier == null
+    }
+}
