@@ -1,52 +1,76 @@
 package com.example.ucp_2.ui.costumwidget
 
-import androidx.compose.runtime.Composable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.ui.Alignment
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.ucp_2.R
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun TopAppBar(
-    onBack: () -> Unit,
-    showBackButton: Boolean = true,
-    judul: String,
+    title: String,
+    modifier: Modifier = Modifier,
+    onBackClick: () -> Unit = {},
+    actionIcon: Int,
+    onActionClick: () -> Unit = {}
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        contentAlignment = Alignment.Center // Pastikan konten di tengah
-    ) {
-        if (showBackButton) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                TextButton(
-                    onClick = onBack,
-                    modifier = Modifier.align(Alignment.CenterVertically)
-                ) {
-                    Text("Kembali")
-                }
-                Spacer(modifier = Modifier.weight(2f))
-            }
-        }
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
-        // Teks judul
-        Text(
-            text = judul,
-            fontSize = 25.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.Center)
-        )
-    }
+    CenterAlignedTopAppBar(
+        modifier = modifier.fillMaxWidth(),
+        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+            containerColor = colorResource(R.color.primary),
+            titleContentColor = Color.White
+        ),
+        title = {
+            Text(
+                text = title,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                color = Color.White
+            )
+        },
+        navigationIcon = {
+            IconButton(onClick = onBackClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = "Navigate Back",
+                    tint = Color.White
+                )
+            }
+        },
+        actions = {
+            IconButton(onClick = onActionClick) {
+                Image(
+                    painter = painterResource(id = actionIcon),
+                    contentDescription = "Action Icon"
+                )
+            }
+        },
+        scrollBehavior = scrollBehavior
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewTopAppBar() {
+    TopAppBar(
+        title = "Manage Barang",
+        onBackClick = { },
+        actionIcon = R.drawable.box,
+        onActionClick = { }
+    )
 }
