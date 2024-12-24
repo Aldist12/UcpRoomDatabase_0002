@@ -46,3 +46,19 @@ class SupplierViewModel(private val repositorySpl: RepositorySup) : ViewModel() 
         uiSplState = uiSplState.copy(snackBarMessage = null)
     }
 }
+data class splUIState(
+    val supplierEvent: SupplierEvent = SupplierEvent(),
+    val isEntrySplValid: FormErrorSplState = FormErrorSplState(),
+    val snackBarMessage: String? = null
+)
+
+data class FormErrorSplState(
+    val nama: String? = null,
+    val kontak: String? = null,
+    val alamat: String? = null
+) {
+    fun isSplValid(): Boolean {
+        return nama == null &&
+                kontak == null && alamat == null
+    }
+}
