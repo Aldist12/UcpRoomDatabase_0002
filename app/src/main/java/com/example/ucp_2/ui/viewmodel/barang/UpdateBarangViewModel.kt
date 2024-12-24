@@ -67,3 +67,7 @@ class UpdateBarangViewModel(
             false
         }
     }
+    fun resetSnackBarMessage() {
+        updateBrgUiState = updateBrgUiState.copy(snackBarMessage = null)
+    }
+}
