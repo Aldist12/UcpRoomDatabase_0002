@@ -10,10 +10,10 @@ interface SuplierDao {
     suspend fun insertSuplier(suplier: Suplier)
 
     @Query
-        ("SELECT * FROM suplier ORDER BY nama ASC")
-    fun getAllSuplier() : Flow<List<Suplier>>
+        ("SELECT * FROM suplier ORDER BY id")
+    fun getAllSuplier(): Flow<List<Suplier>>
 
     @Query
-        ("SELECT * FROM barang WHERE nama = :nama")
-    fun getBarang (nama: String) : Flow<Suplier>
+        ("SELECT nama FROM suplier")
+    fun getSuplierNama(): Flow<List<String>>
 }
