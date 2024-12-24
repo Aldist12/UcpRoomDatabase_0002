@@ -1,6 +1,7 @@
 package com.example.ucp_2.ui.viewmodel.suplier
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.util.Supplier
 import androidx.lifecycle.ViewModel
 import com.example.ucp_2.repository.RepositorySup
 
@@ -62,3 +63,16 @@ data class FormErrorSplState(
                 kontak == null && alamat == null
     }
 }
+fun SupplierEvent.toSupplierEntity(): Supplier = Supplier(
+    id = id,
+    nama = nama,
+    kontak = kontak,
+    alamat = alamat
+)
+
+data class SupplierEvent(
+    val id: Int = 0,
+    val nama: String = "",
+    val kontak: String = "",
+    val alamat: String = ""
+)
