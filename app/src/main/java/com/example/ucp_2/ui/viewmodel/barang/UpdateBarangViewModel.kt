@@ -4,6 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ucp_2.data.entity.Barang
 import com.example.ucp_2.repository.RepositoryBrg
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
@@ -71,3 +72,6 @@ class UpdateBarangViewModel(
         updateBrgUiState = updateBrgUiState.copy(snackBarMessage = null)
     }
 }
+fun Barang.toUIStateBrg(): brgUIState = brgUIState(
+    barangEvent = this.toDetailBrglUiEvent()
+)
