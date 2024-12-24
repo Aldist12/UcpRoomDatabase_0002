@@ -7,6 +7,7 @@ import com.example.ucp_2.repository.RepositoryBrg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class DetailBarangViewModel(
     savedStateHandle: SavedStateHandle,
@@ -41,3 +42,11 @@ class DetailBarangViewModel(
                 isLoading = true
             )
         )
+    fun deleteBrg(){
+        detailBrgUiState.value.detailUiBrgEvent.toBarangEntity().let {
+            viewModelScope.launch {
+                repositoryBrg.deleteBrg(it)
+            }
+        }
+    }
+}
