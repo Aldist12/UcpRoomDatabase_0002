@@ -1,5 +1,6 @@
 package com.example.ucp_2.ui.viewmodel.suplier
 
+import androidx.core.util.Supplier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp_2.repository.RepositorySup
@@ -37,4 +38,9 @@ class SupplierHomeViewModel(
                 isLoading = true
             )
         )
-}
+}data class HomeUIStateSpl(
+    val listSpl: List<Supplier> = listOf(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorMessage: String = ""
+)
