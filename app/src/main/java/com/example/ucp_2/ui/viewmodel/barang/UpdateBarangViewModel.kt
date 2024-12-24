@@ -32,3 +32,38 @@ class UpdateBarangViewModel(
             barangEvent = barangEvent
         )
     }
+    fun validateBrgFields(): Boolean {
+        val event = updateBrgUiState.barangEvent
+        val errorBrgState = FormErrorBrgState(
+            namaBarang = if (event.namaBarang.isNotEmpty()) null else "Nama Barang Tidak Boleh Kosong",
+            deskripsi = if (event.deskripsi.isNotEmpty()) null else "Deskripsi Tidak Boleh Kosong",
+            harga = if (event.harga.isNotEmpty()) null else "Harga Tidak Boleh Kosong",
+            stok = if (event.stok.isNotEmpty()) null else "Stok Tidak Boleh Kosong",
+            namaSupplier = if (event.namaSupplier.isNotEmpty()) null else "Nama Supplier Tidak Boleh Kosong"
+        )
+
+        updateBrgUiState = updateBrgUiState.copy(isEntryBrgValid = errorBrgState)
+        return errorBrgState.isBrgValid()
+    }
+
+    suspend fun updateDataBrg(): Boolean {
+        val currentBrgEvent = updateBrgUiState.barangEvent
+
+        return if (validateBrgFields()) {
+            try {
+                repositoryBrg.updateBrg(currentBrgEvent.toBarangEntity())
+                updateBrgUiState = updateBrgUiState.copy(
+                    snackBarMessage = "Data Berhasil Diupdate",
+                    barangEvent = BarangEvent(),
+                    isEntryBrgValid = FormErrorBrgState()
+                )
+                true
+            } catch (e: Exception) {
+                updateBrgUiState = updateBrgUiState.copy(snackBarMessage = "Data Barang Gagal Diupdate")
+                false
+            }
+        } else {
+            updateBrgUiState = updateBrgUiState.copy(snackBarMessage = "Input tidak valid. Periksa Data Kembali")
+            false
+        }
+    }
