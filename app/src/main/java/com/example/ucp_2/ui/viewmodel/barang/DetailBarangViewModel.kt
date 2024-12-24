@@ -50,3 +50,15 @@ class DetailBarangViewModel(
         }
     }
 }
+data class DetailBrgUiState(
+    val detailUiBrgEvent: BarangEvent = BarangEvent(),
+    val isLoading: Boolean = false,
+    val isError: Boolean = false,
+    val errorBrgMessage: String = ""
+) {
+    val isUiBarangEmpty: Boolean
+        get() = detailUiBrgEvent == BarangEvent()
+
+    val isUiBarangEventNotEmpty:Boolean
+        get() = detailUiBrgEvent != BarangEvent()
+}
