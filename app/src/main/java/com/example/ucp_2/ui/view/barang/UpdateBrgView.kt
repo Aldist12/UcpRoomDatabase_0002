@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp_2.R
 import com.example.ucp_2.ui.costumwidget.TopAppBar
+import com.example.ucp_2.ui.viewmodel.PenyediaViewModel
+import com.example.ucp_2.ui.viewmodel.barang.UpdateBarangViewModel
 
 @Composable
 fun UpdateBarangView(

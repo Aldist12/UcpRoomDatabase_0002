@@ -13,17 +13,15 @@ interface BarangDao {
     @Insert
     suspend fun insertBarang(barang: Barang)
 
-    @Query
-        ("SELECT * FROM barang ORDER BY namaBarang ASC")
-    fun getAllBarang() : Flow<List<Barang>>
-
-    @Query
-        ("SELECT * FROM barang WHERE id = :id")
-    fun getBarang (id: Int) : Flow<Barang>
+    @Update
+    suspend fun updateBarang(barang: Barang)
 
     @Delete
     suspend fun deleteBarang(barang: Barang)
 
-    @Update
-    suspend fun updateBarang(barang: Barang)
+    @Query("SELECT * FROM tblBarang ORDER BY namaBarang")
+    fun getAllBarang(): Flow<List<Barang>>
+
+    @Query("SELECT * FROM tblBarang WHERE id = :id")
+    fun getBarang(id: Int): Flow<Barang>
 }

@@ -1,11 +1,13 @@
 package com.example.ucp_2.ui.viewmodel.suplier
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.core.util.Supplier
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.ucp_2.repository.RepositorySup
+import com.example.ucp_2.data.entity.Suplier
+import com.example.ucp_2.repository.suplier.RepositorySup
 
-class SupplierViewModel(private val repositorySpl: RepositorySup) : ViewModel() {
+class SupplierViewModel(private val repositorySup: RepositorySup) : ViewModel() {
     var uiSplState by mutableStateOf(splUIState())
 
     fun updateSplState(supplierEvent: SupplierEvent) {
@@ -27,7 +29,7 @@ class SupplierViewModel(private val repositorySpl: RepositorySup) : ViewModel() 
 
         return if (validateSplFields()) {
             try {
-                repositorySpl.insertSup(currentSplEvent.toSupplierEntity())
+                repositorySup.insertSuplier(currentSplEvent.toSupplierEntity())
                 uiSplState = uiSplState.copy(
                     snackBarMessage = "Data Berhasil Disimpan",
                     supplierEvent = SupplierEvent(),
@@ -63,7 +65,7 @@ data class FormErrorSplState(
                 kontak == null && alamat == null
     }
 }
-fun SupplierEvent.toSupplierEntity(): Supplier = Supplier(
+fun SupplierEvent.toSupplierEntity(): Suplier = Suplier(
     id = id,
     nama = nama,
     kontak = kontak,

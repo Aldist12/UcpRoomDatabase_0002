@@ -1,27 +1,26 @@
 package com.example.ucp_2.ui.navigation
 
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.ucp_2.ui.view.barang.UpdateBarangView
 import com.example.ucp_2.ui.view.Homepage
 import com.example.ucp_2.ui.view.barang.DetailBrgView
 import com.example.ucp_2.ui.view.barang.HomeBrgView
 import com.example.ucp_2.ui.view.barang.InsertBrgView
-import com.example.ucp_2.ui.view.barang.UpdateBarangView
 import com.example.ucp_2.ui.view.suplier.HomeSupView
 import com.example.ucp_2.ui.view.suplier.InsertSupView
 
-
 @Composable
-fun PengelolaHalaman(
+fun MainControllerPage(
     navController: NavHostController = rememberNavController(),
-    modifier: Modifier = Modifier
+    modifier: Modifier
 ) {
     NavHost(
         navController = navController,

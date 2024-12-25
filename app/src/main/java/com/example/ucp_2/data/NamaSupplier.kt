@@ -14,7 +14,7 @@ object NamaSupplier {
         supplierHomeViewModel: SupplierHomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
     ): List<String> {
         val dataNama by supplierHomeViewModel.homeUiStateSpl.collectAsState()
-        val namaSupplier = dataNama.listSpl.map { it.nama}
+        val namaSupplier = dataNama.listSpl.map { it.nama }
         return namaSupplier
     }
 }

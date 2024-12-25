@@ -1,37 +1,37 @@
 package com.example.ucp_2.ui.navigation
 
-interface Alamatnavigasi {
+interface HalamanController {
     val route: String
 }
 
-object DestinasiHome : Alamatnavigasi {
+object DestinasiHome : HalamanController {
     override val route = "home"
 }
 
-object DestinasiHomeSpl : Alamatnavigasi {
+object DestinasiHomeSpl : HalamanController {
     override val route = "supplier"
 }
 
-object DestinasiInsertSpl : Alamatnavigasi {
+object DestinasiInsertSpl : HalamanController {
     override val route = "supplier/add"
 }
 
 
-object DestinasiHomeBrg : Alamatnavigasi {
+object DestinasiHomeBrg : HalamanController {
     override val route = "barang"
 }
 
-object DestinasiInsertBrg : Alamatnavigasi {
+object DestinasiInsertBrg : HalamanController {
     override val route = "barang/add"
 }
 
-object DestinasiDetailBrg : Alamatnavigasi {
+object DestinasiDetailBrg : HalamanController {
     override val route = "barang"
     const val idBrg = "id"
     val routesWithArg = "$route/{$idBrg}"
 }
 
-object DestinasiUpdateBrg : Alamatnavigasi {
+object DestinasiUpdateBrg : HalamanController {
     override val route = "updateBrg"
     const val idBrg = "id"
     val routesWithArg = "$route/{$idBrg}"

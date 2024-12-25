@@ -3,13 +3,13 @@ package com.example.ucp_2.data.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "barang")
+@Entity(tableName = "tblBarang")
 data class Barang(
-    @PrimaryKey
-    val id: String,
-    val nama: String,
+    @PrimaryKey (autoGenerate = true)
+    val id: Int = 0,
+    val namaBarang: String,
     val deskripsi: String,
-    val harga: String,
-    val stok: String,
+    val harga: Int,
+    val stok: Int,
     val namaSuplier: String
 )

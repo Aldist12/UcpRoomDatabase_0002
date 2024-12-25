@@ -11,20 +11,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.R
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -34,9 +38,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucp_2.data.entity.Suplier
+import com.example.ucp_2.R
+import com.example.ucp_2.ui.costumwidget.LoadingState
 import com.example.ucp_2.ui.costumwidget.TopAppBar
+import com.example.ucp_2.ui.viewmodel.PenyediaViewModel
+import com.example.ucp_2.ui.viewmodel.suplier.HomeUIStateSpl
+import com.example.ucp_2.ui.viewmodel.suplier.SupplierHomeViewModel
 import kotlinx.coroutines.launch
-import java.util.function.Supplier
 
 @Composable
 fun HomeSupView(
@@ -113,15 +122,16 @@ fun BodyHomeSupView(
 
         else -> {
             ListSupplier(
-                listSup = homeUiState.listSpl,
+                listSpl = homeUiState.listSpl,
                 modifier = modifier
             )
         }
     }
 }
+
 @Composable
 fun ListSupplier(
-    listSpl: List<Supplier>,
+    listSpl: List<Suplier>,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -139,7 +149,7 @@ fun ListSupplier(
 }
 @Composable
 fun CardSupplier(
-    spl: Supplier,
+    spl: Suplier,
     modifier: Modifier = Modifier,
 ) {
     Card(

@@ -1,8 +1,11 @@
 package com.example.ucp_2.ui.viewmodel.barang
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import com.example.ucp_2.data.entity.Barang
-import com.example.ucp_2.repository.RepositoryBrg
+import com.example.ucp_2.repository.barang.RepositoryBrg
 
 class BarangViewModel(private val repositoryBrg: RepositoryBrg) : ViewModel() {
     var uiBrgState by mutableStateOf(brgUIState())
@@ -75,7 +78,7 @@ fun BarangEvent.toBarangEntity(): Barang = Barang(
     deskripsi = deskripsi,
     harga = harga.toIntOrNull() ?: 0,
     stok = stok.toIntOrNull() ?: 0,
-    namaSupplier = namaSupplier
+    namaSuplier = namaSupplier
 )
 data class BarangEvent(
     val id: String = "",

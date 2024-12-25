@@ -1,35 +1,19 @@
 package com.example.ucp_2.ui.view.barang
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -38,8 +22,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucp_2.R
 import com.example.ucp_2.data.entity.Barang
+import com.example.ucp_2.ui.costumwidget.LoadingState
 import com.example.ucp_2.ui.costumwidget.TopAppBar
-import java.lang.reflect.Modifier
+import com.example.ucp_2.ui.viewmodel.PenyediaViewModel
+import com.example.ucp_2.ui.viewmodel.barang.DetailBarangViewModel
+import com.example.ucp_2.ui.viewmodel.barang.DetailBrgUiState
+import com.example.ucp_2.ui.viewmodel.barang.toBarangEntity
 
 @Composable
 fun DetailBrgView(
@@ -63,7 +51,7 @@ fun DetailBrgView(
                     onEditClick(viewModel.detailBrgUiState.value.detailUiBrgEvent.id)
                 },
                 shape = MaterialTheme.shapes.medium,
-                modifier = androidx.compose.ui.Modifier.padding(16.dp)
+                modifier = Modifier.padding(16.dp)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Edit,
@@ -99,7 +87,7 @@ fun BarangDetailBody(
 
         detailBrgUiState.isUiBarangEventNotEmpty -> {
             Column(
-                modifier = androidx.compose.ui.Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState())
@@ -115,7 +103,7 @@ fun BarangDetailBody(
                     onClick = {
                         deleteConfirmationRequired = true
                     },
-                    modifier = androidx.compose.ui.Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
                 ) {
                     Icon(
@@ -123,7 +111,7 @@ fun BarangDetailBody(
                         contentDescription = "Delete",
                         tint = Color.White
                     )
-                    Spacer(modifier = androidx.compose.ui.Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
                     Text("Delete", color = Color.White)
                 }
 
@@ -134,7 +122,7 @@ fun BarangDetailBody(
                             onDeleteClick()
                         },
                         onDeleteCancel = { deleteConfirmationRequired = false },
-                        modifier = androidx.compose.ui.Modifier.padding(8.dp)
+                        modifier =Modifier.padding(8.dp)
                     )
                 }
             }
@@ -142,12 +130,12 @@ fun BarangDetailBody(
 
         detailBrgUiState.isUiBarangEmpty -> {
             Box(
-                modifier = androidx.compose.ui.Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     text = "Data tidak Ditemukan",
-                    modifier = androidx.compose.ui.Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp)
                 )
             }
         }
@@ -166,7 +154,7 @@ fun ItemDetailBrg(
         )
     ) {
         Column(
-            modifier = androidx.compose.ui.Modifier.padding(16.dp)
+            modifier = Modifier.padding(16.dp)
         ) {
             // ID
             ComponentDetailBrg(
@@ -177,11 +165,11 @@ fun ItemDetailBrg(
                     imageVector = Icons.Filled.Star,
                     contentDescription = "ID Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
-            HorizontalDivider(modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Nama Barang
             ComponentDetailBrg(
@@ -192,11 +180,11 @@ fun ItemDetailBrg(
                     painter = painterResource(id = R.drawable.item),
                     contentDescription = "Nama Barang Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier =Modifier.size(24.dp)
                 )
             }
 
-            HorizontalDivider(modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Deskripsi
             ComponentDetailBrg(
@@ -207,11 +195,11 @@ fun ItemDetailBrg(
                     imageVector = Icons.Filled.Info,
                     contentDescription = "Deskripsi Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
-            HorizontalDivider(modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Harga
             ComponentDetailBrg(
@@ -222,11 +210,11 @@ fun ItemDetailBrg(
                     painter = painterResource(id = R.drawable.money),
                     contentDescription = "Harga Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
-            HorizontalDivider(modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Stok
             ComponentDetailBrg(
@@ -237,22 +225,22 @@ fun ItemDetailBrg(
                     painter = painterResource(id = R.drawable.stock),
                     contentDescription = "Stok Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
 
-            HorizontalDivider(modifier = androidx.compose.ui.Modifier.padding(vertical = 8.dp))
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
 
             // Nama Supplier
             ComponentDetailBrg(
                 title = "Nama Supplier",
-                content = barang.namaSupplier
+                content = barang.namaSuplier
             ) {
                 Icon(
                     imageVector = Icons.Filled.Person,
                     contentDescription = "Nama Supplier Icon",
                     tint = MaterialTheme.colorScheme.primary,
-                    modifier = androidx.compose.ui.Modifier.size(24.dp)
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
@@ -284,7 +272,7 @@ private fun DeleteConfirmationDialog(
 }
 @Composable
 fun ComponentDetailBrg(
-    modifier: Modifier = androidx.compose.ui.Modifier,
+    modifier: Modifier = Modifier,
     title: String,
     content: String,
     iconContent: @Composable () -> Unit
@@ -294,7 +282,7 @@ fun ComponentDetailBrg(
         verticalAlignment = Alignment.CenterVertically
     ) {
         iconContent()
-        Spacer(modifier = androidx.compose.ui.Modifier.width(8.dp))
+        Spacer(modifier =Modifier.width(8.dp))
         Column {
             Text(
                 text = "$title:",

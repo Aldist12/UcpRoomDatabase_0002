@@ -3,7 +3,7 @@ package com.example.ucp_2.ui.viewmodel.barang
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ucp_2.data.entity.Barang
-import com.example.ucp_2.repository.RepositoryBrg
+import com.example.ucp_2.repository.barang.RepositoryBrg
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,15 +13,14 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 
-
 class BarangHomeViewModel(
     private val repositoryBrg: RepositoryBrg
 ) : ViewModel() {
 
-    val homeUiStateBrg: StateFlow<HomeUIStateBrg> = repositoryBrg.getAllBrg()
+    val homeUiStateBrg: StateFlow<HomeUIStateBrg> = repositoryBrg.getAllBarang()
         .filterNotNull()
         .map {
-            HomeUIStateBrg(
+            HomeUIStateBrg (
                 listBarang = it.toList(),
                 isLoading = false
             )
@@ -34,7 +33,7 @@ class BarangHomeViewModel(
             HomeUIStateBrg(
                 isLoading = false,
                 isError = true,
-                errorMessage = it.message ?: "Terjadi Kesalahan"
+                errorMessage = it.message?: "Terjadi Kesalahan"
             )
         }
         .stateIn(
@@ -45,7 +44,8 @@ class BarangHomeViewModel(
             )
         )
 }
-data class HomeUIStateBrg(
+
+data class HomeUIStateBrg (
     val listBarang: List<Barang> = listOf(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,
